@@ -1,0 +1,43 @@
+id: web26_menu_link_translations
+label: 'Web26 menu link translations'
+migration_group: web26
+source:
+  plugin: web26_menu_link_translation
+  menu_name:
+    - main-menu
+  constants:
+    internal_prefix: 'internal:/'
+process:
+  id: objectid
+  langcode: language
+  title: translation
+  menu_name:
+    plugin: static_map
+    source: menu_name
+    bypass: true
+    map:
+      main-menu: main
+  link/uri:
+    plugin: concat
+    source:
+      - constants/internal_prefix
+      - link_path
+  weight: weight
+  expanded: expanded
+  enabled:
+    plugin: static_map
+    source: hidden
+    map:
+      0: 1
+      1: 0
+  content_translation_source:
+    plugin: default_value
+    default_value: en
+destination:
+  plugin: 'entity:menu_link_content'
+  translations: true
+  destination_module: content_translation
+migration_dependencies:
+  required:
+    - web26_menu_links
+  optional: {  }

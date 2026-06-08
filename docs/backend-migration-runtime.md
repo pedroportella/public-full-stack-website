@@ -57,8 +57,8 @@ The smoke test:
 - imports the content model config;
 - refreshes migration definitions;
 - rolls back any existing sample records;
-- imports users, selected files, selected media, selected taxonomy terms, selected taxonomy term translations, selected companies, all pages, selected articles, selected projects, node translations, selected URL aliases and the main menu links;
-- verifies page, company, article and project translations, selected taxonomy term translations, translated media, bilingual aliases, shared taxonomy aliases, project `15`, alias `/portfolio/destination-nz` and the five main menu page links;
+- imports users, selected files, selected media, selected taxonomy terms, selected taxonomy term translations, selected companies, all pages, selected articles, selected projects, node translations, selected URL aliases, the main menu links and translated main menu labels;
+- verifies page, company, article and project translations, selected taxonomy term translations, translated media, bilingual aliases, shared taxonomy aliases, project `15`, alias `/portfolio/destination-nz`, the five main menu page links and their Portuguese labels;
 - rolls the sample records back out;
 - prints migration status.
 
@@ -79,6 +79,7 @@ The tested chain proves:
 - Drupal 7 URL aliases import into Drupal 11 `path_alias` entities.
 - Taxonomy URL aliases keep the source `und` language as shared aliases.
 - The main menu imports into Drupal 11 menu link content with enabled internal page links.
+- Main menu link translations import into Drupal 11 menu link content translations from legacy i18n/Locale rows.
 
 ## Taxonomy Translation Reconciliation
 

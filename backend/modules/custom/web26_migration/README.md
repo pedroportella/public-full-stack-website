@@ -43,6 +43,7 @@ Initial migration order:
 13. `web26_nodes_project_translations`
 14. `web26_url_aliases`
 15. `web26_menu_links`
+16. `web26_menu_link_translations`
 
 Runtime assumptions:
 
@@ -59,6 +60,7 @@ Custom source plugins:
 
 - `web26_node_entity_translation`: reads legacy node entity translations from current Drupal 7 field tables, including rows whose `entity_translation.revision_id` is empty.
 - `web26_taxonomy_term_translation`: reads legacy taxonomy term labels and descriptions from Drupal 7 Locale rows keyed by taxonomy contexts.
+- `web26_menu_link_translation`: reads legacy menu link labels from Drupal 7 i18n/Locale rows keyed by menu item contexts.
 
 Runtime verification:
 
@@ -66,7 +68,7 @@ Runtime verification:
 ./backend/scripts/migration-smoke-test.sh
 ```
 
-The smoke test imports a small dependency chain, verifies page, company, article and project translations, translated media, bilingual aliases, a project node, path alias and main menu links, then rolls the imported records back out.
+The smoke test imports a small dependency chain, verifies page, company, article and project translations, translated media, bilingual aliases, a project node, path alias, main menu links and translated main menu labels, then rolls the imported records back out.
 It also verifies selected taxonomy term translations and shared taxonomy aliases.
 
 Taxonomy translation reconciliation:

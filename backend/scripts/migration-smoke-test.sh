@@ -8,6 +8,7 @@ drush() {
 }
 
 rollback() {
+  drush migrate:rollback web26_menu_link_translations || true
   drush migrate:rollback web26_menu_links || true
   drush migrate:rollback web26_url_aliases --idlist=1,3,4,5,6,7,8,9,10,11,13,17,21,43,55,56,154,158,182,190,191,193,195,196,198,200,206 || true
   drush migrate:rollback web26_nodes_project_translations --idlist=11:pt-br || true
@@ -45,6 +46,7 @@ drush migrate:import web26_nodes_project --idlist=11,15 --force
 drush migrate:import web26_nodes_project_translations --idlist=11:pt-br --force
 drush migrate:import web26_url_aliases --idlist=1,3,4,5,6,7,8,9,10,11,13,17,21,43,55,56,154,158,182,190,191,193,195,196,198,200,206 --force
 drush migrate:import web26_menu_links --update --force
+drush migrate:import web26_menu_link_translations --force
 
 drush php:eval '
 $project = \Drupal::entityTypeManager()->getStorage("node")->load(15);
@@ -171,19 +173,22 @@ foreach ($required_taxonomy_aliases as $key) {
 echo "Verified taxonomy term translations and shared taxonomy aliases.\n";
 
 $expected = [
-  "Home" => ["internal:/node/1", -50],
-  "About Us" => ["internal:/node/2", -49],
-  "Portfolio" => ["internal:/node/3", -48],
-  "Services" => ["internal:/node/4", -47],
-  "Contact Us" => ["internal:/node/5", -46],
+  "Home" => ["internal:/node/1", -50, "Início"],
+  "About Us" => ["internal:/node/2", -49, "Sobre"],
+  "Portfolio" => ["internal:/node/3", -48, "Portfolio"],
+  "Services" => ["internal:/node/4", -47, "Serviços"],
+  "Contact Us" => ["internal:/node/5", -46, "Contato"],
 ];
 $links = \Drupal::entityTypeManager()->getStorage("menu_link_content")->loadByProperties(["menu_name" => "main"]);
 foreach ($links as $link) {
   $title = $link->label();
   if (isset($expected[$title])) {
-    [$uri, $weight] = $expected[$title];
+    [$uri, $weight, $translated_title] = $expected[$title];
     if ($link->get("link")->uri !== $uri || (int) $link->getWeight() !== $weight || !$link->isEnabled()) {
       throw new \RuntimeException("Menu link $title did not match the expected URI, weight and enabled state.");
+    }
+    if (!$link->hasTranslation("pt-br") || $link->getTranslation("pt-br")->label() !== $translated_title) {
+      throw new \RuntimeException("Menu link $title did not import the expected pt-br title.");
     }
     unset($expected[$title]);
   }
@@ -191,7 +196,7 @@ foreach ($links as $link) {
 if ($expected) {
   throw new \RuntimeException("Migration smoke test did not produce all expected main menu links.");
 }
-echo "Verified main menu page links.\n";
+echo "Verified main menu page links and translations.\n";
 '
 
 rollback
