@@ -1,0 +1,38 @@
+id: web26_nodes_page_translations
+label: 'Web26 page node translations'
+migration_group: web26
+source:
+  plugin: web26_page_entity_translation
+process:
+  nid: entity_id
+  type:
+    plugin: default_value
+    default_value: page
+  langcode: language
+  title: translated_title
+  uid:
+    plugin: migration_lookup
+    migration: web26_users
+    source: uid
+  status: status
+  created: created
+  changed: changed
+  body/value: body_value
+  body/summary: body_summary
+  body/format: body_format
+  field_subtitle: field_subtitle_value
+  field_media_images/target_id:
+    plugin: migration_lookup
+    migration: web26_media_images
+    source: field_image_fid
+  content_translation_source: source
+  content_translation_outdated: translate
+destination:
+  plugin: 'entity:node'
+  translations: true
+  destination_module: content_translation
+migration_dependencies:
+  required:
+    - web26_users
+    - web26_nodes_page
+  optional: {  }
