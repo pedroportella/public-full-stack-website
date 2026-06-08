@@ -3,8 +3,10 @@ label: 'Web26 image media'
 migration_group: web26
 source:
   plugin: d7_file
+  source_base_path: /legacy/sites/default/files
   constants:
     bundle: image
+    source_base_path: /legacy/sites/default/files
 process:
   bundle: constants/bundle
   name: filename

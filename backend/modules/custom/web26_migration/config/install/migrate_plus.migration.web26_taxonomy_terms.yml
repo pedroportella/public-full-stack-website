@@ -19,10 +19,7 @@ process:
     plugin: default_value
     default_value: basic_html
   weight: weight
-  parent:
-    plugin: migration_lookup
-    migration: web26_taxonomy_terms
-    source: parent
+  parent: parent
   field_legacy_tid: tid
 destination:
   plugin: 'entity:taxonomy_term'

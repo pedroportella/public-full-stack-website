@@ -3,6 +3,7 @@ label: 'Web26 files'
 migration_group: web26
 source:
   plugin: d7_file
+  source_base_path: /legacy/sites/default/files
   constants:
     source_base_path: /legacy/sites/default/files
 process:
