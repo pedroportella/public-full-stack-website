@@ -9,7 +9,7 @@ drush() {
 
 rollback() {
   drush migrate:rollback web26_menu_links || true
-  drush migrate:rollback web26_url_aliases --idlist=1,3,4,5,6,7,8,9,10,11,13,17,21,43,55,56,190,191,193,195,196,198,200,206 || true
+  drush migrate:rollback web26_url_aliases --idlist=1,3,4,5,6,7,8,9,10,11,13,17,21,43,55,56,154,158,182,190,191,193,195,196,198,200,206 || true
   drush migrate:rollback web26_nodes_project_translations --idlist=11:pt-br || true
   drush migrate:rollback web26_nodes_project --idlist=11,15 || true
   drush migrate:rollback web26_nodes_article_translations --idlist=18:pt-br || true
@@ -18,7 +18,8 @@ rollback() {
   drush migrate:rollback web26_nodes_page || true
   drush migrate:rollback web26_nodes_company_translations --idlist=7:pt-br || true
   drush migrate:rollback web26_nodes_company --idlist=7,9 || true
-  drush migrate:rollback web26_taxonomy_terms --idlist=4,5,8,10,11,12,15,16,17,18,19,28,29,35,37 || true
+  drush migrate:rollback web26_taxonomy_term_translations --idlist=1:pt-br,5:pt-br,29:pt-br || true
+  drush migrate:rollback web26_taxonomy_terms --idlist=1,4,5,8,10,11,12,15,16,17,18,19,28,29,35,37 || true
   drush migrate:rollback web26_media_images --idlist=1,2,4,6,10,13,21,22,58,59,88 || true
   drush migrate:rollback web26_files --idlist=1,2,4,6,10,13,21,22,58,59,88 || true
   drush migrate:rollback web26_users || true
@@ -32,7 +33,8 @@ rollback
 drush migrate:import web26_users
 drush migrate:import web26_files --idlist=1,2,4,6,10,13,21,22,58,59,88
 drush migrate:import web26_media_images --idlist=1,2,4,6,10,13,21,22,58,59,88 --force
-drush migrate:import web26_taxonomy_terms --idlist=4,5,8,10,11,12,15,16,17,18,19,28,29,35,37 --update
+drush migrate:import web26_taxonomy_terms --idlist=1,4,5,8,10,11,12,15,16,17,18,19,28,29,35,37 --update
+drush migrate:import web26_taxonomy_term_translations --idlist=1:pt-br,5:pt-br,29:pt-br --force
 drush migrate:import web26_nodes_company --idlist=7,9 --force
 drush migrate:import web26_nodes_company_translations --idlist=7:pt-br --force
 drush migrate:import web26_nodes_page --force
@@ -41,7 +43,7 @@ drush migrate:import web26_nodes_article --idlist=18 --force
 drush migrate:import web26_nodes_article_translations --idlist=18:pt-br --force
 drush migrate:import web26_nodes_project --idlist=11,15 --force
 drush migrate:import web26_nodes_project_translations --idlist=11:pt-br --force
-drush migrate:import web26_url_aliases --idlist=1,3,4,5,6,7,8,9,10,11,13,17,21,43,55,56,190,191,193,195,196,198,200,206 --force
+drush migrate:import web26_url_aliases --idlist=1,3,4,5,6,7,8,9,10,11,13,17,21,43,55,56,154,158,182,190,191,193,195,196,198,200,206 --force
 drush migrate:import web26_menu_links --update --force
 
 drush php:eval '
@@ -131,6 +133,42 @@ if ($project11_pt->get("field_media_images")->count() !== 3 || (int) $project11_
   throw new \RuntimeException("Project 11 translation did not map media, company and taxonomy references.");
 }
 echo "Verified company, article and project translations.\n";
+
+$term_storage = \Drupal::entityTypeManager()->getStorage("taxonomy_term");
+$translated_terms = [
+  1 => ["Drupal 7", "Drupal é um framework modular"],
+  5 => ["Entrevista com cliente", "conhecer o cliente"],
+  29 => ["Nova Zelândia", "Nova Zelândia"],
+];
+foreach ($translated_terms as $tid => [$expected_name, $expected_description_fragment]) {
+  $term = $term_storage->load($tid);
+  if (!$term || !$term->hasTranslation("pt-br")) {
+    throw new \RuntimeException("Missing pt-br translation for taxonomy term $tid.");
+  }
+  $translation = $term->getTranslation("pt-br");
+  if ($translation->label() !== $expected_name || !str_contains($translation->getDescription(), $expected_description_fragment)) {
+    throw new \RuntimeException("Taxonomy term $tid translation did not map name and description.");
+  }
+}
+
+$required_taxonomy_aliases = [
+  "/technologies-used/drupal-7|und",
+  "/type-work-done/client-interview|und",
+  "/country/new-zealand|und",
+];
+$seen_taxonomy_aliases = [];
+foreach ($alias_storage->loadMultiple() as $path_alias) {
+  $key = $path_alias->getAlias() . "|" . $path_alias->language()->getId();
+  if (in_array($key, $required_taxonomy_aliases, TRUE)) {
+    $seen_taxonomy_aliases[$key] = TRUE;
+  }
+}
+foreach ($required_taxonomy_aliases as $key) {
+  if (!isset($seen_taxonomy_aliases[$key])) {
+    throw new \RuntimeException("Missing expected taxonomy alias $key.");
+  }
+}
+echo "Verified taxonomy term translations and shared taxonomy aliases.\n";
 
 $expected = [
   "Home" => ["internal:/node/1", -50],

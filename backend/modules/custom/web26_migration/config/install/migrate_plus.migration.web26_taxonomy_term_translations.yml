@@ -1,0 +1,37 @@
+id: web26_taxonomy_term_translations
+label: 'Web26 taxonomy term translations'
+migration_group: web26
+source:
+  plugin: web26_taxonomy_term_translation
+  vocabulary:
+    - tags
+    - technologies_used
+    - type_of_work_done
+    - country
+process:
+  tid: tid
+  vid:
+    plugin: static_map
+    source: machine_name
+    map:
+      tags: tags
+      technologies_used: technologies_used
+      type_of_work_done: type_of_work_done
+      country: country
+  langcode: language
+  name: translated_name
+  description/value: translated_description
+  description/format:
+    plugin: default_value
+    default_value: basic_html
+  content_translation_source:
+    plugin: default_value
+    default_value: en
+destination:
+  plugin: 'entity:taxonomy_term'
+  translations: true
+  destination_module: content_translation
+migration_dependencies:
+  required:
+    - web26_taxonomy_terms
+  optional: {  }

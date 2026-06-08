@@ -10,6 +10,6 @@ default_langcode: site_default
 language_alterable: true
 third_party_settings:
   content_translation:
-    enabled: false
+    enabled: true
     bundle_settings:
       untranslatable_fields_hide: '0'

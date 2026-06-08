@@ -15,6 +15,7 @@ Expected structure:
 ```txt
 config/install
 src/Plugin/migrate/process
+src/Plugin/migrate/source
 ```
 
 The migration imports files before media, media before content, taxonomy before node references, and aliases after their target entities exist.
@@ -31,16 +32,17 @@ Initial migration order:
 2. `web26_files`
 3. `web26_media_images`
 4. `web26_taxonomy_terms`
-5. `web26_nodes_company`
-6. `web26_nodes_company_translations`
-7. `web26_nodes_page`
-8. `web26_nodes_page_translations`
-9. `web26_nodes_article`
-10. `web26_nodes_article_translations`
-11. `web26_nodes_project`
-12. `web26_nodes_project_translations`
-13. `web26_url_aliases`
-14. `web26_menu_links`
+5. `web26_taxonomy_term_translations`
+6. `web26_nodes_company`
+7. `web26_nodes_company_translations`
+8. `web26_nodes_page`
+9. `web26_nodes_page_translations`
+10. `web26_nodes_article`
+11. `web26_nodes_article_translations`
+12. `web26_nodes_project`
+13. `web26_nodes_project_translations`
+14. `web26_url_aliases`
+15. `web26_menu_links`
 
 Runtime assumptions:
 
@@ -52,7 +54,11 @@ Custom process plugins:
 
 - `web26_public_uri_to_legacy_path`: converts `public://...` file URIs into the mounted legacy files path.
 - `web26_url_with_scheme`: normalises legacy links that were stored without `http://` or `https://`.
+
+Custom source plugins:
+
 - `web26_node_entity_translation`: reads legacy node entity translations from current Drupal 7 field tables, including rows whose `entity_translation.revision_id` is empty.
+- `web26_taxonomy_term_translation`: reads legacy taxonomy term labels and descriptions from Drupal 7 Locale rows keyed by taxonomy contexts.
 
 Runtime verification:
 
@@ -61,3 +67,4 @@ Runtime verification:
 ```
 
 The smoke test imports a small dependency chain, verifies page, company, article and project translations, translated media, bilingual aliases, a project node, path alias and main menu links, then rolls the imported records back out.
+It also verifies selected taxonomy term translations and shared taxonomy aliases.
