@@ -1,14 +1,14 @@
-id: web26_nodes_page_translations
-label: 'Web26 page node translations'
+id: web26_nodes_article_translations
+label: 'Web26 article node translations'
 migration_group: web26
 source:
   plugin: web26_node_entity_translation
-  node_type: page
+  node_type: article
 process:
   nid: entity_id
   type:
     plugin: default_value
-    default_value: page
+    default_value: article
   langcode: language
   title: translated_title
   uid:
@@ -18,10 +18,15 @@ process:
   status: status
   created: created
   changed: changed
-  body/value: body_value
-  body/summary: body_summary
-  body/format: body_format
-  field_subtitle: field_subtitle_value
+  body: body
+  field_tags:
+    plugin: sub_process
+    source: field_tags
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration: web26_taxonomy_terms
+        source: tid
   field_media_images:
     plugin: sub_process
     source: field_image
@@ -39,5 +44,7 @@ destination:
 migration_dependencies:
   required:
     - web26_users
-    - web26_nodes_page
+    - web26_media_images
+    - web26_taxonomy_terms
+    - web26_nodes_article
   optional: {  }

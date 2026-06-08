@@ -9,14 +9,18 @@ drush() {
 
 rollback() {
   drush migrate:rollback web26_menu_links || true
-  drush migrate:rollback web26_url_aliases --idlist=1,3,4,5,6,7,8,9,10,11,21,55,56,190,191,195,196,206 || true
-  drush migrate:rollback web26_nodes_project --idlist=15 || true
+  drush migrate:rollback web26_url_aliases --idlist=1,3,4,5,6,7,8,9,10,11,13,17,21,43,55,56,190,191,193,195,196,198,200,206 || true
+  drush migrate:rollback web26_nodes_project_translations --idlist=11:pt-br || true
+  drush migrate:rollback web26_nodes_project --idlist=11,15 || true
+  drush migrate:rollback web26_nodes_article_translations --idlist=18:pt-br || true
+  drush migrate:rollback web26_nodes_article --idlist=18 || true
   drush migrate:rollback web26_nodes_page_translations || true
   drush migrate:rollback web26_nodes_page || true
-  drush migrate:rollback web26_nodes_company --idlist=9 || true
-  drush migrate:rollback web26_taxonomy_terms --idlist=28,5,29 || true
-  drush migrate:rollback web26_media_images --idlist=1,4,10,58,59 || true
-  drush migrate:rollback web26_files --idlist=1,4,10,58,59 || true
+  drush migrate:rollback web26_nodes_company_translations --idlist=7:pt-br || true
+  drush migrate:rollback web26_nodes_company --idlist=7,9 || true
+  drush migrate:rollback web26_taxonomy_terms --idlist=4,5,8,10,11,12,15,16,17,18,19,28,29,35,37 || true
+  drush migrate:rollback web26_media_images --idlist=1,2,4,6,10,13,21,22,58,59,88 || true
+  drush migrate:rollback web26_files --idlist=1,2,4,6,10,13,21,22,58,59,88 || true
   drush migrate:rollback web26_users || true
 }
 
@@ -26,14 +30,18 @@ rollback() {
 rollback
 
 drush migrate:import web26_users
-drush migrate:import web26_files --idlist=1,4,10,58,59
-drush migrate:import web26_media_images --idlist=1,4,10,58,59 --force
-drush migrate:import web26_taxonomy_terms --idlist=28,5,29 --update
-drush migrate:import web26_nodes_company --idlist=9 --force
+drush migrate:import web26_files --idlist=1,2,4,6,10,13,21,22,58,59,88
+drush migrate:import web26_media_images --idlist=1,2,4,6,10,13,21,22,58,59,88 --force
+drush migrate:import web26_taxonomy_terms --idlist=4,5,8,10,11,12,15,16,17,18,19,28,29,35,37 --update
+drush migrate:import web26_nodes_company --idlist=7,9 --force
+drush migrate:import web26_nodes_company_translations --idlist=7:pt-br --force
 drush migrate:import web26_nodes_page --force
 drush migrate:import web26_nodes_page_translations --force
-drush migrate:import web26_nodes_project --idlist=15 --force
-drush migrate:import web26_url_aliases --idlist=1,3,4,5,6,7,8,9,10,11,21,55,56,190,191,195,196,206 --force
+drush migrate:import web26_nodes_article --idlist=18 --force
+drush migrate:import web26_nodes_article_translations --idlist=18:pt-br --force
+drush migrate:import web26_nodes_project --idlist=11,15 --force
+drush migrate:import web26_nodes_project_translations --idlist=11:pt-br --force
+drush migrate:import web26_url_aliases --idlist=1,3,4,5,6,7,8,9,10,11,13,17,21,43,55,56,190,191,193,195,196,198,200,206 --force
 drush migrate:import web26_menu_links --update --force
 
 drush php:eval '
@@ -95,6 +103,34 @@ foreach ($required_aliases as $key) {
   }
 }
 echo "Verified bilingual page aliases.\n";
+
+$node7 = $node_storage->load(7);
+if (!$node7 || !$node7->hasTranslation("pt-br")) {
+  throw new \RuntimeException("Missing company 7 translation.");
+}
+$node7_pt = $node7->getTranslation("pt-br");
+if ($node7_pt->get("field_media_images")->count() !== 1 || $node7_pt->get("field_company_website")->uri !== "https://www.olympic.co.nz") {
+  throw new \RuntimeException("Company 7 translation did not map media and link fields.");
+}
+
+$article18 = $node_storage->load(18);
+if (!$article18 || !$article18->hasTranslation("pt-br")) {
+  throw new \RuntimeException("Missing article 18 translation.");
+}
+$article18_pt = $article18->getTranslation("pt-br");
+if ($article18_pt->label() !== "Bem-vindo ao nosso website" || $article18_pt->get("field_tags")->count() !== 5 || $article18_pt->get("field_media_images")->count() !== 1) {
+  throw new \RuntimeException("Article 18 translation did not map title, tags and media.");
+}
+
+$project11 = $node_storage->load(11);
+if (!$project11 || !$project11->hasTranslation("pt-br")) {
+  throw new \RuntimeException("Missing project 11 translation.");
+}
+$project11_pt = $project11->getTranslation("pt-br");
+if ($project11_pt->get("field_media_images")->count() !== 3 || (int) $project11_pt->get("field_company")->target_id !== 9 || $project11_pt->get("field_technologies_used")->count() !== 2 || $project11_pt->get("field_type_of_work_done")->count() !== 4 || $project11_pt->get("field_country")->count() !== 1) {
+  throw new \RuntimeException("Project 11 translation did not map media, company and taxonomy references.");
+}
+echo "Verified company, article and project translations.\n";
 
 $expected = [
   "Home" => ["internal:/node/1", -50],

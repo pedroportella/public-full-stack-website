@@ -1,0 +1,81 @@
+id: web26_nodes_project_translations
+label: 'Web26 project node translations'
+migration_group: web26
+source:
+  plugin: web26_node_entity_translation
+  node_type: project
+process:
+  nid: entity_id
+  type:
+    plugin: default_value
+    default_value: project
+  langcode: language
+  title: translated_title
+  uid:
+    plugin: migration_lookup
+    migration: web26_users
+    source: uid
+  status: status
+  created: created
+  changed: changed
+  body: body
+  field_project_link/uri:
+    plugin: web26_url_with_scheme
+    source: field_project_link/0/url
+  field_project_link/title: field_project_link/0/title
+  field_project_date/value: field_project_date
+  field_company:
+    plugin: sub_process
+    source: field_company
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration: web26_nodes_company
+        source: nid
+  field_technologies_used:
+    plugin: sub_process
+    source: field_technologies_used
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration: web26_taxonomy_terms
+        source: tid
+  field_type_of_work_done:
+    plugin: sub_process
+    source: field_type_of_work_done
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration: web26_taxonomy_terms
+        source: tid
+  field_country:
+    plugin: sub_process
+    source: field_country
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration: web26_taxonomy_terms
+        source: tid
+  field_media_images:
+    plugin: sub_process
+    source: field_image
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration: web26_media_images
+        source: fid
+  content_translation_source: source
+  content_translation_outdated: translate
+destination:
+  plugin: 'entity:node'
+  translations: true
+  destination_module: content_translation
+migration_dependencies:
+  required:
+    - web26_users
+    - web26_media_images
+    - web26_taxonomy_terms
+    - web26_nodes_company
+    - web26_nodes_company_translations
+    - web26_nodes_project
+  optional: {  }

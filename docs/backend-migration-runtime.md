@@ -57,8 +57,8 @@ The smoke test:
 - imports the content model config;
 - refreshes migration definitions;
 - rolls back any existing sample records;
-- imports users, selected files, selected media, selected taxonomy terms, one company, all pages, page translations, one project, selected URL aliases and the main menu links;
-- verifies page translations, translated media, bilingual page aliases, project `15`, alias `/portfolio/destination-nz` and the five main menu page links;
+- imports users, selected files, selected media, selected taxonomy terms, selected companies, all pages, selected articles, selected projects, node translations, selected URL aliases and the main menu links;
+- verifies page, company, article and project translations, translated media, bilingual aliases, project `15`, alias `/portfolio/destination-nz` and the five main menu page links;
 - rolls the sample records back out;
 - prints migration status.
 
@@ -70,7 +70,9 @@ The tested chain proves:
 - Legacy public files copy from the mounted source path.
 - Media images reference migrated file entities.
 - Page translations import into Drupal 11 content translations.
+- Company, article and project translations import into Drupal 11 content translations.
 - Translated page media references resolve independently from default-language media references.
+- Translated project and article references resolve through migrated media, company and taxonomy entities.
 - Project content references migrated company, media and taxonomy records.
 - Project links are normalised when the source value has no URL scheme.
 - Drupal 7 URL aliases import into Drupal 11 `path_alias` entities.
