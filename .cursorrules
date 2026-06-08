@@ -65,3 +65,47 @@ When summarising work, include:
 - what was validated;
 - any known limitation or next step;
 - a suggested git commit message.
+
+## Commit Message Convention
+
+Always suggest a commit message after implementation work.
+
+Use:
+
+```txt
+type(scope): past-tense-verb summary
+```
+
+Friendly regex for future checks:
+
+```regex
+^(feat|fix|refactor|chore|perf|ci|ops|build|docs|style|revert|test)\([a-z0-9]+(?:-[a-z0-9]+)*\): [a-z]+ed\b[a-z0-9 ,.'/-]*$
+```
+
+The summary must start with a past-tense verb, such as `added`, `documented`, `developed`, `implemented`, `reverted`, `refactored`, `changed`, `improved` or `resolved`.
+
+Allowed types:
+
+- `feat`: adds a new feature.
+- `fix`: fixes a bug.
+- `refactor`: restructures code without adding a feature or fixing a bug.
+- `chore`: miscellaneous maintenance that does not modify source or test behavior.
+- `perf`: improves performance.
+- `ci`: changes continuous integration.
+- `ops`: affects infrastructure, deployment, backup or recovery.
+- `build`: affects the build system, dependencies or project versioning.
+- `docs`: changes documentation.
+- `style`: changes formatting without changing code meaning.
+- `revert`: reverts a previous commit.
+- `test`: adds or corrects tests.
+
+Examples:
+
+```txt
+docs(web26): documented backend migration runtime guardrails
+feat(migration): added Drupal source runtime verification
+chore(repo): added Cursor repository guardrails
+feat(fe): implemented new button style
+feat(be): improved api resilience
+fix(fe): resolved paragraph overflow on mobile viewport
+```
