@@ -48,3 +48,11 @@ Custom process plugins:
 
 - `web26_public_uri_to_legacy_path`: converts `public://...` file URIs into the mounted legacy files path.
 - `web26_url_with_scheme`: normalises legacy links that were stored without `http://` or `https://`.
+
+Runtime verification:
+
+```bash
+./backend/scripts/migration-smoke-test.sh
+```
+
+The smoke test imports a small dependency chain, verifies a project node and path alias, then rolls the imported records back out.

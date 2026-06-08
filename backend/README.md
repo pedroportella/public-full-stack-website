@@ -12,6 +12,7 @@ Key folders:
 - `config/sync`: exported Drupal configuration for content types, fields, media, vocabularies, language settings and API-related config.
 - `modules/custom`: custom Drupal modules owned by this project.
 - `modules/custom/web26_migration`: migration definitions and custom process plugins for importing the legacy Drupal 7 content.
+- `scripts`: repeatable backend runtime commands for configuration import and migration verification.
 
 Migration runtime:
 
@@ -31,4 +32,22 @@ Local Drupal URL:
 
 ```txt
 http://localhost:8080
+```
+
+Import the backend content model config used by the migration runtime:
+
+```bash
+./backend/scripts/import-content-model-config.sh
+```
+
+Refresh migration definitions after changing the custom migration module:
+
+```bash
+./backend/scripts/refresh-migration-config.sh
+```
+
+Run the reversible migration smoke test:
+
+```bash
+./backend/scripts/migration-smoke-test.sh
 ```

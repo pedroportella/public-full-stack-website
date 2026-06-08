@@ -21,7 +21,7 @@ Do not move code across these boundaries without a clear architecture reason.
 
 Public documentation must read as handover and technical decision material.
 
-Do not describe work as stages, batches, implementation diaries or private planning notes.
+Do not describe work through internal delivery sequencing or private planning notes.
 
 Do not reference private working notes, internal AI notes or migration diary files.
 

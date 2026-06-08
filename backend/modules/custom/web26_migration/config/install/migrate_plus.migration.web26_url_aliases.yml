@@ -3,12 +3,22 @@ label: 'Web26 URL aliases'
 migration_group: web26
 source:
   plugin: d7_url_alias
+  constants:
+    slash: /
 process:
-  source: source
-  alias: alias
+  path:
+    plugin: concat
+    source:
+      - constants/slash
+      - source
+  alias:
+    plugin: concat
+    source:
+      - constants/slash
+      - alias
   langcode: language
 destination:
-  plugin: 'url_alias'
+  plugin: 'entity:path_alias'
 migration_dependencies:
   required:
     - web26_nodes_page

@@ -30,3 +30,21 @@ Database URL:
 ```txt
 127.0.0.1:33080
 ```
+
+Prepare Drupal content-model config for migration testing:
+
+```bash
+./backend/scripts/import-content-model-config.sh
+```
+
+Refresh migration config after changing `backend/modules/custom/web26_migration`:
+
+```bash
+./backend/scripts/refresh-migration-config.sh
+```
+
+Run the reversible backend migration smoke test:
+
+```bash
+./backend/scripts/migration-smoke-test.sh
+```
