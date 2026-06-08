@@ -68,3 +68,11 @@ Runtime verification:
 
 The smoke test imports a small dependency chain, verifies page, company, article and project translations, translated media, bilingual aliases, a project node, path alias and main menu links, then rolls the imported records back out.
 It also verifies selected taxonomy term translations and shared taxonomy aliases.
+
+Taxonomy translation reconciliation:
+
+```bash
+./backend/scripts/taxonomy-translation-reconciliation.sh
+```
+
+The taxonomy reconciliation imports all taxonomy terms and all taxonomy term translations, compares translated labels and descriptions against the legacy Locale source rows, then rolls the taxonomy records back out.

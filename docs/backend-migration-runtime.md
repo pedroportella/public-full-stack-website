@@ -80,6 +80,18 @@ The tested chain proves:
 - Taxonomy URL aliases keep the source `und` language as shared aliases.
 - The main menu imports into Drupal 11 menu link content with enabled internal page links.
 
+## Taxonomy Translation Reconciliation
+
+Run:
+
+```bash
+./backend/scripts/taxonomy-translation-reconciliation.sh
+```
+
+The reconciliation imports all taxonomy terms and all taxonomy term translations, compares Drupal 11 translated labels and descriptions against the legacy taxonomy Locale rows, rolls the taxonomy records back out and prints migration status.
+
+The current source contains 25 taxonomy term translation rows for the migrated vocabularies.
+
 ## Known Follow-Up
 
 The remaining content types need equivalent translation and alias verification before a full migration run.
