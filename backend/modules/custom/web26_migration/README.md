@@ -86,3 +86,11 @@ Node count reconciliation:
 ```
 
 The node reconciliation imports all in-scope node dependencies, all page, company, article and project nodes, and all node translations, compares Drupal 11 node language rows against the legacy source counts, then rolls the imported records back out.
+
+File and media reconciliation:
+
+```bash
+./backend/scripts/file-media-reconciliation.sh
+```
+
+The file and media reconciliation imports all managed files and image media entities, verifies source disk presence, Drupal file metadata and media image references, then rolls the imported records back out.

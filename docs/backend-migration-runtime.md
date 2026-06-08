@@ -105,6 +105,18 @@ The reconciliation imports all in-scope node dependencies, all page, company, ar
 
 The current source contains 42 in-scope base nodes and 22 node translation rows, for 64 expected Drupal node language rows after import.
 
+## File And Media Reconciliation
+
+Run:
+
+```bash
+./backend/scripts/file-media-reconciliation.sh
+```
+
+The reconciliation imports all managed files and image media entities, verifies source disk presence, Drupal file metadata and media image references, rolls the imported records back out and prints migration status.
+
+The current source contains 97 managed image files: 38 JPEG files and 59 PNG files.
+
 ## Known Follow-Up
 
 The remaining content types need equivalent translation and alias verification before a full migration run.
