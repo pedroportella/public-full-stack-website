@@ -1,0 +1,15 @@
+{
+  "name": "public-full-stack-website",
+  "private": true,
+  "version": "0.0.0",
+  "packageManager": "pnpm@10.0.0",
+  "scripts": {
+    "dev": "pnpm --filter @web26/web dev",
+    "build": "pnpm --filter @web26/web build",
+    "lint": "pnpm --filter @web26/web lint",
+    "typecheck": "pnpm --filter @web26/web typecheck"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.0"
+  }
+}

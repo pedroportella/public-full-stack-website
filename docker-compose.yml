@@ -1,0 +1,55 @@
+services:
+  drupal:
+    build:
+      context: .
+      dockerfile: docker/drupal/Dockerfile
+    profiles: ["cms"]
+    depends_on:
+      - database
+      - legacy_database
+    ports:
+      - "127.0.0.1:8080:80"
+    environment:
+      DRUPAL_DB_HOST: database
+      DRUPAL_DB_NAME: ${DRUPAL_DB_NAME:-web26}
+      DRUPAL_DB_USER: ${DRUPAL_DB_USER:-web26}
+      DRUPAL_DB_PASSWORD: ${DRUPAL_DB_PASSWORD:-web26}
+      DRUPAL_MIGRATE_DB_HOST: ${DRUPAL_MIGRATE_DB_HOST:-legacy_database}
+      DRUPAL_MIGRATE_DB_PORT: ${DRUPAL_MIGRATE_DB_PORT:-3306}
+      DRUPAL_MIGRATE_DB_NAME: ${DRUPAL_MIGRATE_DB_NAME:-pedroportella_d7}
+      DRUPAL_MIGRATE_DB_USER: ${DRUPAL_MIGRATE_DB_USER:-web26_migrate}
+      DRUPAL_MIGRATE_DB_PASSWORD: ${DRUPAL_MIGRATE_DB_PASSWORD:-web26_migrate}
+    volumes:
+      - ./backend/files:/var/www/html/sites/default/files
+      - ./backend/private-files:/var/www/private-files
+      - ./backend/config/sync:/var/www/config/sync
+      - ./backend/modules/custom:/var/www/html/modules/custom
+      - ./docker/drupal/settings.php:/var/www/html/sites/default/settings.php:ro
+      - ${WEB26_LEGACY_FILES_PATH:-../../web12/pedroportella.com/public/drupal7/sites/default/files}:/legacy/sites/default/files:ro
+
+  database:
+    image: mariadb:11
+    profiles: ["cms"]
+    ports:
+      - "127.0.0.1:33080:3306"
+    environment:
+      MARIADB_DATABASE: ${DRUPAL_DB_NAME:-web26}
+      MARIADB_USER: ${DRUPAL_DB_USER:-web26}
+      MARIADB_PASSWORD: ${DRUPAL_DB_PASSWORD:-web26}
+      MARIADB_ROOT_PASSWORD: ${DRUPAL_DB_ROOT_PASSWORD:-web26root}
+    volumes:
+      - ./backend/mysql:/var/lib/mysql
+
+  legacy_database:
+    image: mariadb:11
+    profiles: ["cms"]
+    ports:
+      - "127.0.0.1:33081:3306"
+    environment:
+      MARIADB_DATABASE: ${DRUPAL_MIGRATE_DB_NAME:-pedroportella_d7}
+      MARIADB_USER: ${DRUPAL_MIGRATE_DB_USER:-web26_migrate}
+      MARIADB_PASSWORD: ${DRUPAL_MIGRATE_DB_PASSWORD:-web26_migrate}
+      MARIADB_ROOT_PASSWORD: ${DRUPAL_MIGRATE_DB_ROOT_PASSWORD:-web26legacyroot}
+    volumes:
+      - ./backend/legacy-mysql:/var/lib/mysql
+      - ${WEB26_LEGACY_DB_DUMP:-../../web12/pedroportella.com/db/pedroportella_d7-20200320-130536.sql.gz}:/docker-entrypoint-initdb.d/web12.sql.gz:ro

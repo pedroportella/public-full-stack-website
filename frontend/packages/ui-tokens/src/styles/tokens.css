@@ -1,0 +1,30 @@
+:root {
+  --web26-color-page: #151515;
+  --web26-color-surface: #252525;
+  --web26-color-surface-strong: #343434;
+  --web26-color-hero: #000000;
+  --web26-color-text: #cdcdcd;
+  --web26-color-text-soft: #cccccc;
+  --web26-color-text-muted: #666666;
+  --web26-color-text-subtle: #5d5d5d;
+  --web26-color-heading: #ffffff;
+  --web26-color-action: #00ffff;
+  --web26-color-action-text: #000000;
+  --web26-font-body: Verdana, sans-serif;
+  --web26-font-title: sansationregular, Verdana, sans-serif;
+  --web26-font-content: lucida_sans_unicoderegular, Verdana, sans-serif;
+  --web26-space-1: 0.25rem;
+  --web26-space-2: 0.5rem;
+  --web26-space-3: 0.75rem;
+  --web26-space-4: 1rem;
+  --web26-space-5: 1.5rem;
+  --web26-space-6: 2rem;
+  --web26-space-7: 3rem;
+  --web26-space-8: 4rem;
+  --web26-focus-ring: 3px solid var(--web26-color-action);
+}
+
+:focus-visible {
+  outline: var(--web26-focus-ring);
+  outline-offset: 3px;
+}

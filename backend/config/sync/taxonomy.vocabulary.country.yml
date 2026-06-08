@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+name: Country
+vid: country
+description: 'Country taxonomy migrated from Web12.'
+weight: 3

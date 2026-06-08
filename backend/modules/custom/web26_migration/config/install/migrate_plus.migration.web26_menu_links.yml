@@ -1,0 +1,30 @@
+id: web26_menu_links
+label: 'Web26 menu links'
+migration_group: web26
+source:
+  plugin: menu_link
+process:
+  id: mlid
+  title: link_title
+  description: description
+  menu_name:
+    plugin: static_map
+    source: menu_name
+    bypass: true
+    map:
+      main-menu: main
+  link/uri: link_path
+  weight: weight
+  expanded: expanded
+  enabled:
+    plugin: static_map
+    source: hidden
+    map:
+      0: 1
+      1: 0
+destination:
+  plugin: 'entity:menu_link_content'
+migration_dependencies:
+  required:
+    - web26_url_aliases
+  optional: {  }

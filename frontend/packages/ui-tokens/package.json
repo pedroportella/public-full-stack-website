@@ -1,0 +1,10 @@
+{
+  "name": "@web26/ui-tokens",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./styles.css": "./src/styles/tokens.css"
+  }
+}

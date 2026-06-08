@@ -1,0 +1,15 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.technologies_used
+id: taxonomy_term.technologies_used
+target_entity_type_id: taxonomy_term
+target_bundle: technologies_used
+default_langcode: site_default
+language_alterable: true
+third_party_settings:
+  content_translation:
+    enabled: false
+    bundle_settings:
+      untranslatable_fields_hide: '0'

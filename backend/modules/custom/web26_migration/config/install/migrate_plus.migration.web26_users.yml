@@ -1,0 +1,17 @@
+id: web26_users
+label: 'Web26 users'
+migration_group: web26
+source:
+  plugin: d7_user
+process:
+  uid: uid
+  name: name
+  mail: mail
+  status: status
+  created: created
+  changed: access
+destination:
+  plugin: 'entity:user'
+migration_dependencies:
+  required: {  }
+  optional: {  }

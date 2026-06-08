@@ -1,0 +1,39 @@
+id: web26_nodes_page
+label: 'Web26 page nodes'
+migration_group: web26
+source:
+  plugin: d7_node
+  node_type: page
+process:
+  type:
+    plugin: default_value
+    default_value: page
+  nid: nid
+  vid: vid
+  langcode: language
+  title: title_field/0/value
+  uid:
+    plugin: migration_lookup
+    migration: web26_users
+    source: node_uid
+  status: status
+  created: created
+  changed: changed
+  body: body
+  field_legacy_nid: nid
+  field_subtitle: field_subtitle/0/value
+  field_media_images:
+    plugin: sub_process
+    source: field_image
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration: web26_media_images
+        source: fid
+destination:
+  plugin: 'entity:node'
+migration_dependencies:
+  required:
+    - web26_users
+    - web26_media_images
+  optional: {  }

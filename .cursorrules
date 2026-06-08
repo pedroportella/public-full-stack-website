@@ -1,0 +1,67 @@
+# Web26 Repository Guardrails
+
+## Purpose
+
+This repository is a portfolio-quality full-stack implementation for `pedroportella.com`.
+
+Keep changes professional, scoped and consistent with the existing architecture.
+
+## Repository Boundaries
+
+- Keep frontend code under `frontend`.
+- Keep the public Next.js app under `frontend/apps/web`.
+- Keep shared frontend packages under `frontend/packages`.
+- Keep Drupal backend code, config and migration code under `backend`.
+- Keep Docker support files under `docker`.
+- Keep public handover and technical documentation under `docs`.
+
+Do not move code across these boundaries without a clear architecture reason.
+
+## Public Documentation
+
+Public documentation must read as handover and technical decision material.
+
+Do not describe work as stages, batches, implementation diaries or private planning notes.
+
+Do not reference private working notes, internal AI notes or migration diary files.
+
+## Frontend Architecture
+
+- Keep content access in `frontend/packages/services-content`.
+- Keep design tokens in `frontend/packages/ui-tokens`.
+- Keep static reusable assets in `frontend/packages/ui-assets`.
+- Keep shared React components in `frontend/packages/ui-library`.
+- Keep pure helpers in `frontend/packages/utils`.
+- Keep app-specific routing and page composition in `frontend/apps/web`.
+
+Avoid mixing API/domain logic into UI packages.
+
+## Backend Architecture
+
+- Keep Drupal exported config under `backend/config/sync`.
+- Keep custom Drupal modules under `backend/modules/custom`.
+- Keep migration definitions and process plugins inside `backend/modules/custom/web26_migration`.
+- Preserve legacy IDs used for reconciliation.
+- Treat migration imports as repeatable and rollback-friendly.
+
+## Docker Runtime
+
+- Keep CMS runtime changes in `docker-compose.yml` and `docker`.
+- Keep environment values documented through `.env.example`.
+- Do not commit generated database volumes, public files or private files.
+
+## Change Discipline
+
+- Prefer small, focused changes that preserve existing package boundaries.
+- Validate YAML/PHP/TypeScript changes with the nearest available command.
+- Do not introduce unrelated refactors while completing a migration or feature step.
+- Keep public-facing text concise, credible and portfolio-ready.
+
+## Delivery Notes
+
+When summarising work, include:
+
+- what changed;
+- what was validated;
+- any known limitation or next step;
+- a suggested git commit message.

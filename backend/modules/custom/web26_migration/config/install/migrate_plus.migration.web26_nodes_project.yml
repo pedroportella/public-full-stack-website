@@ -1,0 +1,77 @@
+id: web26_nodes_project
+label: 'Web26 project nodes'
+migration_group: web26
+source:
+  plugin: d7_node
+  node_type: project
+process:
+  type:
+    plugin: default_value
+    default_value: project
+  nid: nid
+  vid: vid
+  langcode: language
+  title: title_field/0/value
+  uid:
+    plugin: migration_lookup
+    migration: web26_users
+    source: node_uid
+  status: status
+  created: created
+  changed: changed
+  body: body
+  field_legacy_nid: nid
+  field_project_link/uri:
+    plugin: web26_url_with_scheme
+    source: field_project_link/0/url
+  field_project_link/title: field_project_link/0/title
+  field_project_date/value: field_project_date/0/value
+  field_company:
+    plugin: sub_process
+    source: field_company
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration: web26_nodes_company
+        source: nid
+  field_technologies_used:
+    plugin: sub_process
+    source: field_technologies_used
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration: web26_taxonomy_terms
+        source: tid
+  field_type_of_work_done:
+    plugin: sub_process
+    source: field_type_of_work_done
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration: web26_taxonomy_terms
+        source: tid
+  field_country:
+    plugin: sub_process
+    source: field_country
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration: web26_taxonomy_terms
+        source: tid
+  field_media_images:
+    plugin: sub_process
+    source: field_image
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration: web26_media_images
+        source: fid
+destination:
+  plugin: 'entity:node'
+migration_dependencies:
+  required:
+    - web26_users
+    - web26_media_images
+    - web26_taxonomy_terms
+    - web26_nodes_company
+  optional: {  }

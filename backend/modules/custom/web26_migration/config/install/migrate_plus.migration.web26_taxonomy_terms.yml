@@ -1,0 +1,31 @@
+id: web26_taxonomy_terms
+label: 'Web26 taxonomy terms'
+migration_group: web26
+source:
+  plugin: d7_taxonomy_term
+process:
+  tid: tid
+  vid:
+    plugin: static_map
+    source: machine_name
+    map:
+      tags: tags
+      technologies_used: technologies_used
+      type_of_work_done: type_of_work_done
+      country: country
+  name: name
+  description/value: description
+  description/format:
+    plugin: default_value
+    default_value: basic_html
+  weight: weight
+  parent:
+    plugin: migration_lookup
+    migration: web26_taxonomy_terms
+    source: parent
+  field_legacy_tid: tid
+destination:
+  plugin: 'entity:taxonomy_term'
+migration_dependencies:
+  required: {  }
+  optional: {  }

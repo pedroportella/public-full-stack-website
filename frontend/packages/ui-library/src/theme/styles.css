@@ -1,0 +1,67 @@
+@import "@web26/ui-tokens/styles.css";
+
+.web26-skip-link {
+  position: absolute;
+  left: var(--web26-space-4);
+  top: var(--web26-space-4);
+  z-index: 10;
+  transform: translateY(-150%);
+  background: var(--web26-color-action);
+  color: var(--web26-color-action-text);
+  padding: var(--web26-space-2) var(--web26-space-3);
+}
+
+.web26-skip-link:focus {
+  transform: translateY(0);
+}
+
+.web26-container,
+.web26-page-frame {
+  width: min(100% - 2rem, 72rem);
+  margin-inline: auto;
+}
+
+.web26-site-header,
+.web26-site-footer {
+  background: var(--web26-color-hero);
+  border-block: 1px solid var(--web26-color-surface-strong);
+}
+
+.web26-site-header {
+  padding-block: var(--web26-space-5);
+}
+
+.web26-site-footer {
+  margin-top: var(--web26-space-8);
+  padding-block: var(--web26-space-5);
+  color: var(--web26-color-text-subtle);
+}
+
+.web26-site-title {
+  color: var(--web26-color-heading);
+  font-family: var(--web26-font-title);
+  font-size: 1.5rem;
+}
+
+.web26-page-frame {
+  padding-block: var(--web26-space-8);
+}
+
+.web26-page-frame h1 {
+  color: var(--web26-color-heading);
+  font-family: var(--web26-font-title);
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  line-height: 1.05;
+  margin: 0 0 var(--web26-space-4);
+}
+
+.web26-page-frame p {
+  max-width: 42rem;
+  line-height: 1.7;
+}
+
+.web26-eyebrow {
+  color: var(--web26-color-action);
+  font-family: var(--web26-font-content);
+  margin: 0 0 var(--web26-space-2);
+}

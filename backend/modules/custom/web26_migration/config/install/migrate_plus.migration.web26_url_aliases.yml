@@ -1,0 +1,19 @@
+id: web26_url_aliases
+label: 'Web26 URL aliases'
+migration_group: web26
+source:
+  plugin: d7_url_alias
+process:
+  source: source
+  alias: alias
+  langcode: language
+destination:
+  plugin: 'url_alias'
+migration_dependencies:
+  required:
+    - web26_nodes_page
+    - web26_nodes_article
+    - web26_nodes_company
+    - web26_nodes_project
+    - web26_taxonomy_terms
+  optional: {  }

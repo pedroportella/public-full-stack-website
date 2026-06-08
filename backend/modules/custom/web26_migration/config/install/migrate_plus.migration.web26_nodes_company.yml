@@ -1,0 +1,42 @@
+id: web26_nodes_company
+label: 'Web26 company nodes'
+migration_group: web26
+source:
+  plugin: d7_node
+  node_type: company
+process:
+  type:
+    plugin: default_value
+    default_value: company
+  nid: nid
+  vid: vid
+  langcode: language
+  title: title_field/0/value
+  uid:
+    plugin: migration_lookup
+    migration: web26_users
+    source: node_uid
+  status: status
+  created: created
+  changed: changed
+  body: body
+  field_legacy_nid: nid
+  field_company_website/uri:
+    plugin: web26_url_with_scheme
+    source: field_company_website/0/url
+  field_company_website/title: field_company_website/0/title
+  field_media_images:
+    plugin: sub_process
+    source: field_image
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration: web26_media_images
+        source: fid
+destination:
+  plugin: 'entity:node'
+migration_dependencies:
+  required:
+    - web26_users
+    - web26_media_images
+  optional: {  }

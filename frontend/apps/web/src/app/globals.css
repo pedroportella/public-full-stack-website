@@ -1,0 +1,12 @@
+@import "@web26/ui-library/theme.css";
+
+html {
+  background: var(--web26-color-page);
+}
+
+body {
+  margin: 0;
+  background: var(--web26-color-page);
+  color: var(--web26-color-text);
+  font-family: var(--web26-font-body);
+}

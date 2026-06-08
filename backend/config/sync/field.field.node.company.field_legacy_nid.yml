@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_legacy_nid
+    - node.type.company
+id: node.company.field_legacy_nid
+field_name: field_legacy_nid
+entity_type: node
+bundle: company
+label: 'Legacy node ID'
+description: 'Drupal 7 nid used for migration reconciliation.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

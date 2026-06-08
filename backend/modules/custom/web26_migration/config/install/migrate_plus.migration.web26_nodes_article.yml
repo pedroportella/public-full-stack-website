@@ -1,0 +1,47 @@
+id: web26_nodes_article
+label: 'Web26 article nodes'
+migration_group: web26
+source:
+  plugin: d7_node
+  node_type: article
+process:
+  type:
+    plugin: default_value
+    default_value: article
+  nid: nid
+  vid: vid
+  langcode: language
+  title: title_field/0/value
+  uid:
+    plugin: migration_lookup
+    migration: web26_users
+    source: node_uid
+  status: status
+  created: created
+  changed: changed
+  body: body
+  field_legacy_nid: nid
+  field_tags:
+    plugin: sub_process
+    source: field_tags
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration: web26_taxonomy_terms
+        source: tid
+  field_media_images:
+    plugin: sub_process
+    source: field_image
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration: web26_media_images
+        source: fid
+destination:
+  plugin: 'entity:node'
+migration_dependencies:
+  required:
+    - web26_users
+    - web26_media_images
+    - web26_taxonomy_terms
+  optional: {  }

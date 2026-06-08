@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_legacy_fid
+    - media.type.image
+id: media.image.field_legacy_fid
+field_name: field_legacy_fid
+entity_type: media
+bundle: image
+label: 'Legacy file ID'
+description: 'Drupal 7 file_managed fid used for migration reconciliation.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

@@ -1,0 +1,26 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_media_images
+    - media.type.image
+    - node.type.article
+id: node.article.field_media_images
+field_name: field_media_images
+entity_type: node
+bundle: article
+label: Images
+description: 'Images migrated from Web12 field_image.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+    sort:
+      field: name
+      direction: ASC
+field_type: entity_reference

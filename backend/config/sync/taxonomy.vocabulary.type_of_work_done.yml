@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+name: 'Type of work done'
+vid: type_of_work_done
+description: 'Types of work delivered on portfolio projects.'
+weight: 2

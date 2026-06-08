@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+name: 'Technologies used'
+vid: technologies_used
+description: 'Technologies used on portfolio projects.'
+weight: 1
