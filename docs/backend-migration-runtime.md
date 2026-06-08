@@ -93,6 +93,18 @@ The reconciliation imports all taxonomy terms and all taxonomy term translations
 
 The current source contains 25 taxonomy term translation rows for the migrated vocabularies.
 
+## Node Count Reconciliation
+
+Run:
+
+```bash
+./backend/scripts/node-count-reconciliation.sh
+```
+
+The reconciliation imports all in-scope node dependencies, all page, company, article and project nodes, and all node translations, compares Drupal 11 node language rows against the legacy source counts, rolls the imported records back out and prints migration status.
+
+The current source contains 42 in-scope base nodes and 22 node translation rows, for 64 expected Drupal node language rows after import.
+
 ## Known Follow-Up
 
 The remaining content types need equivalent translation and alias verification before a full migration run.

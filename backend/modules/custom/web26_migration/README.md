@@ -78,3 +78,11 @@ Taxonomy translation reconciliation:
 ```
 
 The taxonomy reconciliation imports all taxonomy terms and all taxonomy term translations, compares translated labels and descriptions against the legacy Locale source rows, then rolls the taxonomy records back out.
+
+Node count reconciliation:
+
+```bash
+./backend/scripts/node-count-reconciliation.sh
+```
+
+The node reconciliation imports all in-scope node dependencies, all page, company, article and project nodes, and all node translations, compares Drupal 11 node language rows against the legacy source counts, then rolls the imported records back out.
