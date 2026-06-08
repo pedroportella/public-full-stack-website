@@ -8,8 +8,10 @@ drush() {
 }
 
 rollback() {
-  drush migrate:rollback web26_url_aliases --idlist=21 || true
+  drush migrate:rollback web26_menu_links || true
+  drush migrate:rollback web26_url_aliases --idlist=1,3,4,5,6,21 || true
   drush migrate:rollback web26_nodes_project --idlist=15 || true
+  drush migrate:rollback web26_nodes_page --idlist=1,2,3,4,5 || true
   drush migrate:rollback web26_nodes_company --idlist=9 || true
   drush migrate:rollback web26_taxonomy_terms --idlist=28,5,29 || true
   drush migrate:rollback web26_media_images --idlist=1,4,10 || true
@@ -27,8 +29,10 @@ drush migrate:import web26_files --idlist=1,4,10
 drush migrate:import web26_media_images --idlist=1,4,10 --force
 drush migrate:import web26_taxonomy_terms --idlist=28,5,29 --update
 drush migrate:import web26_nodes_company --idlist=9 --force
+drush migrate:import web26_nodes_page --idlist=1,2,3,4,5 --force
 drush migrate:import web26_nodes_project --idlist=15 --force
-drush migrate:import web26_url_aliases --idlist=21 --force
+drush migrate:import web26_url_aliases --idlist=1,3,4,5,6,21 --force
+drush migrate:import web26_menu_links --update --force
 
 drush php:eval '
 $project = \Drupal::entityTypeManager()->getStorage("node")->load(15);
@@ -37,6 +41,29 @@ if (!$project || $project->bundle() !== "project" || !$alias) {
   throw new \RuntimeException("Migration smoke test did not produce the expected project and alias.");
 }
 echo "Verified project 15 and alias /portfolio/destination-nz.\n";
+
+$expected = [
+  "Home" => ["internal:/node/1", -50],
+  "About Us" => ["internal:/node/2", -49],
+  "Portfolio" => ["internal:/node/3", -48],
+  "Services" => ["internal:/node/4", -47],
+  "Contact Us" => ["internal:/node/5", -46],
+];
+$links = \Drupal::entityTypeManager()->getStorage("menu_link_content")->loadByProperties(["menu_name" => "main"]);
+foreach ($links as $link) {
+  $title = $link->label();
+  if (isset($expected[$title])) {
+    [$uri, $weight] = $expected[$title];
+    if ($link->get("link")->uri !== $uri || (int) $link->getWeight() !== $weight || !$link->isEnabled()) {
+      throw new \RuntimeException("Menu link $title did not match the expected URI, weight and enabled state.");
+    }
+    unset($expected[$title]);
+  }
+}
+if ($expected) {
+  throw new \RuntimeException("Migration smoke test did not produce all expected main menu links.");
+}
+echo "Verified main menu page links.\n";
 '
 
 rollback

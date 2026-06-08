@@ -3,6 +3,8 @@ label: 'Web26 menu links'
 migration_group: web26
 source:
   plugin: menu_link
+  constants:
+    internal_prefix: 'internal:/'
 process:
   id: mlid
   title: link_title
@@ -13,7 +15,11 @@ process:
     bypass: true
     map:
       main-menu: main
-  link/uri: link_path
+  link/uri:
+    plugin: concat
+    source:
+      - constants/internal_prefix
+      - link_path
   weight: weight
   expanded: expanded
   enabled:

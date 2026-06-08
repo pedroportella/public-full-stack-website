@@ -57,8 +57,8 @@ The smoke test:
 - imports the content model config;
 - refreshes migration definitions;
 - rolls back any existing sample records;
-- imports users, selected files, selected media, selected taxonomy terms, one company, one project and one URL alias;
-- verifies project `15` and alias `/portfolio/destination-nz`;
+- imports users, selected files, selected media, selected taxonomy terms, one company, five pages, one project, selected URL aliases and the main menu links;
+- verifies project `15`, alias `/portfolio/destination-nz` and the five main menu page links;
 - rolls the sample records back out;
 - prints migration status.
 
@@ -72,7 +72,8 @@ The tested chain proves:
 - Project content references migrated company, media and taxonomy records.
 - Project links are normalised when the source value has no URL scheme.
 - Drupal 7 URL aliases import into Drupal 11 `path_alias` entities.
+- The main menu imports into Drupal 11 menu link content with enabled internal page links.
 
 ## Known Follow-Up
 
-Menu links depend on the first five page nodes from the legacy main menu. Verify those page imports before enabling the menu-link import in a wider migration run.
+Portuguese aliases for the first five page nodes are present in the source and should be verified during the translation pass.

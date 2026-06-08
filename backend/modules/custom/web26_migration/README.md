@@ -55,4 +55,4 @@ Runtime verification:
 ./backend/scripts/migration-smoke-test.sh
 ```
 
-The smoke test imports a small dependency chain, verifies a project node and path alias, then rolls the imported records back out.
+The smoke test imports a small dependency chain, verifies a project node, path alias and main menu links, then rolls the imported records back out.
