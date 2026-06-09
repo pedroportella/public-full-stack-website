@@ -94,3 +94,11 @@ File and media reconciliation:
 ```
 
 The file and media reconciliation imports all managed files and image media entities, verifies source disk presence, Drupal file metadata and media image references, then rolls the imported records back out.
+
+URL alias reconciliation:
+
+```bash
+./backend/scripts/alias-reconciliation.sh
+```
+
+The alias reconciliation imports all alias target dependencies and all URL aliases, compares mapped Drupal path aliases against the legacy source rows by path, alias, language and source type, then rolls the imported records back out.

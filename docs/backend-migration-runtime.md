@@ -117,6 +117,18 @@ The reconciliation imports all managed files and image media entities, verifies 
 
 The current source contains 97 managed image files: 38 JPEG files and 59 PNG files.
 
+## URL Alias Reconciliation
+
+Run:
+
+```bash
+./backend/scripts/alias-reconciliation.sh
+```
+
+The reconciliation imports all alias target dependencies and all URL aliases, compares mapped Drupal path aliases against the legacy source rows by path, alias, language and source type, rolls the imported records back out and prints migration status.
+
+The current source contains 124 URL aliases: 66 node aliases, 55 taxonomy aliases and 3 user aliases.
+
 ## Known Follow-Up
 
 The remaining content types need equivalent translation and alias verification before a full migration run.
