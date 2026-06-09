@@ -135,6 +135,10 @@ Legacy Drupal 7 Webform nodes are intentionally excluded from the content migrat
 
 The source contains two published contact webform nodes and 23 historical submissions. The Web26 implementation should provide a new contact flow instead of carrying Drupal 7 Webform semantics forward.
 
+Legacy Drupal 7 custom blocks and public Views blocks are intentionally excluded from the Drupal content migration runtime.
+
+The source block content is treated as frontend and design-system reference material. Public list blocks should be recreated by the Next.js frontend from migrated Drupal content queries rather than by migrating Drupal 7 block or Views configuration.
+
 ## Known Follow-Up
 
-Custom block/reusable content needs an inventory and migration decision before a full migration run.
+Route-resolution reconciliation should be added once the frontend content service exists.

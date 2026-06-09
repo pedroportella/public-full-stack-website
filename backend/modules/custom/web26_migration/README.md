@@ -106,3 +106,4 @@ The alias reconciliation imports all alias target dependencies and all URL alias
 Scope exclusions:
 
 - Legacy Drupal 7 Webform nodes are not migrated by this module. Web26 should implement a new contact flow instead of carrying Drupal 7 Webform behavior forward.
+- Legacy Drupal 7 custom blocks and public Views blocks are not migrated by this module. Web26 should recreate those surfaces in the frontend from migrated content, design-system assets and explicit application copy.
