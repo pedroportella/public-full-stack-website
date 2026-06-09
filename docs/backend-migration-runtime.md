@@ -129,6 +129,12 @@ The reconciliation imports all alias target dependencies and all URL aliases, co
 
 The current source contains 124 URL aliases: 66 node aliases, 55 taxonomy aliases and 3 user aliases.
 
+## Scope Exclusions
+
+Legacy Drupal 7 Webform nodes are intentionally excluded from the content migration runtime.
+
+The source contains two published contact webform nodes and 23 historical submissions. The Web26 implementation should provide a new contact flow instead of carrying Drupal 7 Webform semantics forward.
+
 ## Known Follow-Up
 
-The remaining content types need equivalent translation and alias verification before a full migration run.
+Custom block/reusable content needs an inventory and migration decision before a full migration run.

@@ -102,3 +102,7 @@ URL alias reconciliation:
 ```
 
 The alias reconciliation imports all alias target dependencies and all URL aliases, compares mapped Drupal path aliases against the legacy source rows by path, alias, language and source type, then rolls the imported records back out.
+
+Scope exclusions:
+
+- Legacy Drupal 7 Webform nodes are not migrated by this module. Web26 should implement a new contact flow instead of carrying Drupal 7 Webform behavior forward.
