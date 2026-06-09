@@ -15,3 +15,4 @@ Current docs:
 
 - `local-development.md`: local frontend and backend runtime commands.
 - `backend-migration-runtime.md`: Drupal migration runtime commands, verification flow and current backend migration surface.
+- `contact-flow.md`: Next.js-owned contact form architecture, validation, delivery and privacy boundary.

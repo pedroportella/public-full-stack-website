@@ -103,6 +103,14 @@ URL alias reconciliation:
 
 The alias reconciliation imports all alias target dependencies and all URL aliases, compares mapped Drupal path aliases against the legacy source rows by path, alias, language and source type, then rolls the imported records back out.
 
+Migration readiness:
+
+- `migration-smoke-test.sh` verifies the core sample chain and translated menu labels.
+- `taxonomy-translation-reconciliation.sh` verifies all taxonomy term translations.
+- `file-media-reconciliation.sh` verifies all managed files and mapped image media.
+- `node-count-reconciliation.sh` verifies all in-scope nodes and node language rows.
+- `alias-reconciliation.sh` verifies all URL aliases.
+
 Scope exclusions:
 
 - Legacy Drupal 7 Webform nodes are not migrated by this module. Web26 should implement a new contact flow instead of carrying Drupal 7 Webform behavior forward.

@@ -129,6 +129,34 @@ The reconciliation imports all alias target dependencies and all URL aliases, co
 
 The current source contains 124 URL aliases: 66 node aliases, 55 taxonomy aliases and 3 user aliases.
 
+## Readiness Summary
+
+The current backend migration runtime has repeatable verification coverage for:
+
+- 3 users;
+- 97 managed image files;
+- 97 image media entities;
+- 55 taxonomy terms;
+- 25 taxonomy term translations;
+- 42 in-scope base nodes;
+- 22 node translation rows;
+- 64 node language rows;
+- 124 URL aliases;
+- 5 main menu links;
+- 5 translated main menu labels.
+
+Run the verification commands before a full migration handoff:
+
+```bash
+./backend/scripts/migration-smoke-test.sh
+./backend/scripts/taxonomy-translation-reconciliation.sh
+./backend/scripts/file-media-reconciliation.sh
+./backend/scripts/node-count-reconciliation.sh
+./backend/scripts/alias-reconciliation.sh
+```
+
+Each command imports its verification surface, validates source-to-target parity, rolls imported records back out and finishes with Web26 migrations idle.
+
 ## Scope Exclusions
 
 Legacy Drupal 7 Webform nodes are intentionally excluded from the content migration runtime.
