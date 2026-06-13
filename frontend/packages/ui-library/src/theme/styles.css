@@ -65,3 +65,123 @@
   font-family: var(--web26-font-content);
   margin: 0 0 var(--web26-space-2);
 }
+
+.web26-contact-page {
+  display: grid;
+  gap: var(--web26-space-7);
+  grid-template-columns: minmax(0, 0.9fr) minmax(20rem, 1.1fr);
+  align-items: start;
+}
+
+.web26-contact-intro {
+  position: sticky;
+  top: var(--web26-space-6);
+}
+
+.web26-contact-form {
+  display: grid;
+  gap: var(--web26-space-5);
+  padding: var(--web26-space-6);
+  background: var(--web26-color-surface);
+  border: 1px solid var(--web26-color-surface-strong);
+}
+
+.web26-form-row {
+  display: grid;
+  gap: var(--web26-space-4);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.web26-field {
+  display: grid;
+  gap: var(--web26-space-2);
+  color: var(--web26-color-heading);
+  font-family: var(--web26-font-content);
+}
+
+.web26-field span {
+  display: flex;
+  align-items: baseline;
+  gap: var(--web26-space-2);
+}
+
+.web26-field small {
+  color: var(--web26-color-text-subtle);
+  font-size: 0.8rem;
+}
+
+.web26-field input,
+.web26-field textarea {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid var(--web26-color-surface-strong);
+  background: var(--web26-color-hero);
+  color: var(--web26-color-heading);
+  padding: var(--web26-space-3);
+}
+
+.web26-field textarea {
+  resize: vertical;
+}
+
+.web26-field input:disabled,
+.web26-field textarea:disabled {
+  color: var(--web26-color-text-muted);
+}
+
+.web26-honeypot {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.web26-button {
+  justify-self: start;
+  border: 0;
+  background: var(--web26-color-action);
+  color: var(--web26-color-action-text);
+  cursor: pointer;
+  font-family: var(--web26-font-content);
+  min-height: 2.75rem;
+  padding: var(--web26-space-3) var(--web26-space-5);
+}
+
+.web26-button:disabled {
+  cursor: default;
+  opacity: 0.7;
+}
+
+.web26-form-status {
+  display: grid;
+  gap: var(--web26-space-1);
+  margin: 0;
+  padding: var(--web26-space-4);
+  border: 1px solid var(--web26-color-surface-strong);
+  background: var(--web26-color-hero);
+}
+
+.web26-form-status strong {
+  color: var(--web26-color-heading);
+}
+
+.web26-form-status--success {
+  border-color: var(--web26-color-action);
+}
+
+@media (max-width: 48rem) {
+  .web26-contact-page,
+  .web26-form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .web26-contact-intro {
+    position: static;
+  }
+
+  .web26-contact-form {
+    padding: var(--web26-space-5);
+  }
+}

@@ -1,16 +1,41 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "plugins": [{ "name": "next" }],
+    "baseUrl": ".",
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
     "paths": {
-      "@/*": ["./src/*"],
-      "@web26/services-content": ["../../packages/services-content/src/index.ts"],
-      "@web26/ui-assets": ["../../packages/ui-assets/src/index.ts"],
-      "@web26/ui-library": ["../../packages/ui-library/src/index.ts"],
-      "@web26/ui-tokens": ["../../packages/ui-tokens/src/index.ts"],
-      "@web26/utils": ["../../packages/utils/src/index.ts"]
-    }
+      "@/*": [
+        "./src/*"
+      ],
+      "@web26/services-content": [
+        "../../packages/services-content/src/index.ts"
+      ],
+      "@web26/ui-assets": [
+        "../../packages/ui-assets/src/index.ts"
+      ],
+      "@web26/ui-library": [
+        "../../packages/ui-library/src/index.ts"
+      ],
+      "@web26/ui-tokens": [
+        "../../packages/ui-tokens/src/index.ts"
+      ],
+      "@web26/utils": [
+        "../../packages/utils/src/index.ts"
+      ]
+    },
+    "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

@@ -10,13 +10,15 @@ Drupal owns the editable contact-page content, route aliases and menu placement.
 
 Implement contact as a Next.js-owned feature.
 
-The initial boundary should be:
+The initial boundary is:
 
 ```txt
 frontend/apps/web/src/app/api/contact/route.ts
 ```
 
-The API route receives form submissions from the public contact page, validates the payload server-side and hands the message to the configured delivery provider.
+The API route receives form submissions from the public contact page, validates the payload server-side and hands the message to the configured delivery boundary.
+
+Local development uses a non-persistent `development-log` delivery mode. Production delivery should be connected through a provider adapter before launch.
 
 Drupal should not store contact submissions by default. The CMS remains responsible for content, not operational message intake.
 
@@ -33,6 +35,13 @@ Expected aliases:
 
 The route resolver can load the Drupal page content for the current alias, then mount the contact form component for the contact page template.
 
+Current implemented routes:
+
+```txt
+frontend/apps/web/src/app/get-touch/page.tsx
+frontend/apps/web/src/app/entre-em-contato/page.tsx
+```
+
 ## Form Fields
 
 Required payload:
@@ -44,6 +53,8 @@ phone optional string
 message required string
 locale required en | pt-br
 ```
+
+The implementation also submits a honeypot field and form-start timestamp for spam checks.
 
 Recommended labels:
 
@@ -109,6 +120,15 @@ CONTACT_RATE_LIMIT_MAX
 
 The route handler should return a success response after the provider accepts the message. Provider failures should return a generic failure response and emit an operational log entry.
 
+The current provider boundary records only operational metadata in local development:
+
+```txt
+correlation ID
+locale
+phone presence
+delivery mode
+```
+
 ## Privacy And Retention
 
 Do not persist submissions unless a later requirement explicitly introduces a retention policy.
@@ -142,3 +162,30 @@ When building the feature, keep the boundary clear:
 - Next.js provides the interactive form and API endpoint.
 - Delivery provider configuration lives in environment variables.
 - Historical submissions are not imported into the new runtime.
+
+## Current Implementation Status
+
+Implemented:
+
+- English contact route at `/get-touch`;
+- Portuguese contact route at `/entre-em-contato`;
+- shared contact form component;
+- `POST /api/contact`;
+- server-side validation;
+- honeypot, submit-timing and in-memory rate-limit checks;
+- local `development-log` delivery boundary.
+
+Verified:
+
+- production build generated both contact routes;
+- browser route check confirmed localized titles, visible fields and submit labels;
+- local API check accepted a valid synthetic payload;
+- local API check rejected an invalid email payload.
+
+Still required before production:
+
+- production delivery provider adapter;
+- API route tests;
+- form interaction tests;
+- browser accessibility and visual verification;
+- Drupal-backed route/content resolution.

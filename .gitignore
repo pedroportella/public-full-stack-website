@@ -3,6 +3,7 @@ node_modules/
 frontend/node_modules/
 .next/
 frontend/apps/web/.next/
+*.tsbuildinfo
 dist/
 coverage/
 playwright-report/

@@ -10,3 +10,9 @@ body {
   color: var(--web26-color-text);
   font-family: var(--web26-font-body);
 }
+
+button,
+input,
+textarea {
+  font: inherit;
+}
