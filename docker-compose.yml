@@ -28,7 +28,7 @@ services:
       - ${WEB26_LEGACY_FILES_PATH:-../../web12/pedroportella.com/public/drupal7/sites/default/files}:/legacy/sites/default/files:ro
 
   database:
-    image: mariadb:11
+    image: mariadb:11.8
     profiles: ["cms"]
     ports:
       - "127.0.0.1:33080:3306"
@@ -41,7 +41,7 @@ services:
       - ./backend/mysql:/var/lib/mysql
 
   legacy_database:
-    image: mariadb:11
+    image: mariadb:11.8
     profiles: ["cms"]
     ports:
       - "127.0.0.1:33081:3306"

@@ -1,3 +1,17 @@
 packages:
   - "apps/*"
   - "packages/*"
+
+# Security floors for transitive dependencies pinned by Next.js 15.5.
+# Next 15.5.28 already accepts sharp ^0.35.5; Next 16 ships postcss 8.5.23.
+overrides:
+  postcss: ^8.5.23
+  sharp: ^0.35.5
+
+# eslint-config-next 16.4+ supports ESLint 10; these plugins have not
+# widened their declared peer ranges yet.
+peerDependencyRules:
+  allowedVersions:
+    eslint-plugin-import>eslint: "10"
+    eslint-plugin-jsx-a11y>eslint: "10"
+    eslint-plugin-react>eslint: "10"

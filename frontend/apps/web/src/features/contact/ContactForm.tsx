@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { ContactPageContent } from "./contactContent";
 
 interface ContactFormProps {
@@ -20,8 +20,13 @@ interface ContactFormPayload {
 }
 
 export function ContactForm({ content }: ContactFormProps) {
-  const startedAt = useMemo(() => Date.now(), []);
+  // Set on mount, not during render, so the spam-timing value stays pure.
+  const startedAt = useRef(0);
   const [state, setState] = useState<SubmitState>("idle");
+
+  useEffect(() => {
+    startedAt.current = Date.now();
+  }, []);
 
   async function handleSubmit(formData: FormData) {
     setState("submitting");
@@ -33,7 +38,7 @@ export function ContactForm({ content }: ContactFormProps) {
       message: String(formData.get("message") ?? ""),
       locale: content.locale,
       company: String(formData.get("company") ?? ""),
-      startedAt
+      startedAt: startedAt.current
     };
 
     try {

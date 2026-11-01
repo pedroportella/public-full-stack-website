@@ -44,7 +44,7 @@ You are working in the Web26 public full-stack website repository for `pedroport
 
 - Use Node.js 22-compatible tooling, pnpm and TypeScript for frontend work.
 - The frontend workspace is rooted at `frontend/`; run frontend package scripts with `pnpm --dir frontend ...`.
-- The public app currently uses Next.js 15, React 19 and TypeScript 5.8.
+- The public app currently uses Next.js 16, React 19.2 and TypeScript 5.9. Linting runs through the ESLint CLI with `eslint-config-next` flat config; `next lint` no longer exists.
 - The local CMS baseline uses Drupal 11 and MariaDB through Docker Compose.
 - Keep root scripts and documented commands as orchestration commands over package-specific details.
 - Do not commit `node_modules`, `.next`, `dist`, coverage, Playwright reports, local logs, generated databases, Drupal generated public/private files, Docker volumes, local env files or generated secrets.

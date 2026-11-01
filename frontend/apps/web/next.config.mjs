@@ -6,16 +6,10 @@ const nextConfig = {
     "@web26/ui-library",
     "@web26/ui-tokens",
     "@web26/utils"
-  ],
-  images: {
-    remotePatterns: [
-      {
-        protocol: "http",
-        hostname: "localhost",
-        port: "8080"
-      }
-    ]
-  }
+  ]
+  // No remote image patterns yet. Add the CMS media origin here when
+  // Drupal-backed images are rendered; Next 16 blocks local-IP origins
+  // unless `images.dangerouslyAllowLocalIP` is set.
 };
 
 export default nextConfig;
